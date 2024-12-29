@@ -1,0 +1,215 @@
+{{!-- 
+Citation for "create table" and "form to add trail":
+Date: 05/29/2024
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%205%20-%20Adding%20New%20Data/views/index.hbs
+--}}
+
+<!-- trails.hbs -->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+<h1>Trails</h1>
+<p>Browse, add, edit, or delete a trail from Byte Hikers database</p>
+<p><a href="javascript:void(0);" onclick="showAddTrailForm()">+ Add a Trail</a></p>
+
+{{!-- create table --}}
+
+<table id="trails-table">
+
+    <thead>
+        <tr>
+            <th>Trail ID</th>
+            <th>Trail Name</th>
+            <th>Location</th>
+
+            <th>Supported Activities</th>
+            <th>Difficulty</th>
+            <th>Distance in Miles</th>
+            <th>Elevation Gain</th>
+
+            <th>Description</th>
+
+            <th>Dog Friendly</th>
+            <th>Waterfall</th>
+            <th>Average Rating</th>
+            <th>Average Duration (minutes)</th>
+
+            <th>Edit</th>
+            <th>Delete</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-value="{{this.trailID}}">
+            <td>{{this.trailID}}</td>
+            <td>{{this.trailName}}</td>
+            <td>{{this.location}}</td>                        
+
+            <td>{{{this.supportedActivityTypes}}}</td>
+            <td>{{this.difficulty}}</td>
+
+            <td>{{this.distance}}</td>
+            <td>{{this.elevationGain}}</td>
+            <td>{{this.description}}</td>
+
+            <td>{{this.dogFriendly}}</td>
+            <td>{{this.waterfall}}</td>
+            <td>{{this.avgRating}}</td>
+            <td>{{this.avgDuration}}</td>
+            
+            <td><a href="javascript:void(0);" onclick="updateTrail({{this.trailID}})">Edit</a></td>
+            <td><a href="javascript:void(0);" onclick="deleteTrail({{this.trailID}})">Delete</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+{{!-- form to add trail --}}
+<div class="boxes" id="add-trail">
+    <div class="form" id="add">
+        <h2>Add a Trail</h2>
+        <p>To add a new trail, enter the info and click 'Submit'</p>
+
+        <form id="add-trail-form-ajax">
+            <label for="input-trailName" class="required-label">Trail Name: </label>
+            <input required class="input-text" type="text" name="input-trailName" id="input-trailName">
+
+            <br><br>
+            <label for="input-location" class="required-label">Location: </label>
+            <input required class="input-text" type="text" name="input-location" id="input-location">
+
+            <br><br>
+            <label for="input-supportedActivityTypes">Select Supported Activities: </label>
+            <div id="checkboxes-container-add">
+                {{#each categories}}
+                    <input type="checkbox" name="supportedActivityTypes" value="{{this.categoryID}}">
+                    <label>{{{this.icon}}} {{this.description}}</label><br>
+                {{/each}}
+            </div>
+            
+            <br><br>
+            <label for="input-difficulty" class="required-label">Difficulty: </label>
+            <select required name="input-difficulty" id="input-difficulty">
+                <option value="Easy">Easy</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Hard">Hard</option>
+            </select>
+
+            <br><br>
+            <label for="input-distance">Distance (miles): </label>
+            <input class="input-text" type="text" name="input-distance" id="input-distance">
+
+            <br><br>
+            <label for="input-elevationGain">Elevation Gain (feet): </label>
+            <input class="input-text" type="text" name="input-elevationGain" id="input-elevationGain">
+
+            <br><br>
+            <label for="input-description">Description: </label>
+            <textarea class="input-textarea" name="input-description" id="input-description"></textarea>
+
+            <br><br>
+            <label for="input-dogFriendly">Dog Friendly: </label>
+            <input type="radio" name="input-dogFriendly" id="dogFriendlyYes" value="1">
+            <label for="dogFriendlyYes">Yes</label>
+            <input type="radio" name="input-dogFriendly" id="dogFriendlyNo" value="0">
+            <label for="dogFriendlyNo">No</label>
+
+            <br><br>
+            <label for="input-waterfall"> Waterfall: </label>
+            <input type="radio" name="input-waterfall" id="waterfallYes" value="1">
+            <label for="waterfallYes">Yes</label>
+            <input type="radio" name="input-waterfall" id="waterfallNo" value="0">
+            <label for="waterfallNo">No</label>
+
+            <br><br>
+            <input class="button" type="submit" value="Submit" />
+            <button type="button" onclick="location.reload()" class="cancel">Cancel</button>
+        </form>
+    </div>
+</div>
+
+{{!-- 
+Citation for "update trail":
+Date: 06/02/2024
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
+--}}
+
+{{!-- form to update trail --}}
+<div class="boxes" id="update-trail">
+    <div class="form" id="update">
+        <h2>Update a Trail</h2>
+        <p>Only change what you want changed.
+            <br>All changes are permanent. 
+        </p>
+        <form id="update-trail-form-ajax">
+            <label for="input-trailName-update" class="required-label">Update Trail Name: </label>
+            <input required class="input-text" name="input-trailName" id="input-trailName-update" type="text">
+
+            <br><br>
+            <label for="input-location-update" class="required-label">Update Location: </label>
+            <input required class="input-text" name="input-location" id="input-location-update" type="text">
+
+            <br><br>
+            <label for="input-supportedActivities-update">Update Supported Activities: </label>
+            <div id="checkboxes-container-update">
+                {{#each categories}}
+                    <input type="checkbox" name="supportedActivities" id ="category-{{this.categoryID}}-update" value="{{this.categoryID}}">
+                    <label>{{{this.icon}}} {{this.description}}</label><br>
+                {{/each}}
+            </div>
+            <br>
+            <label for="input-difficulty-update">Difficulty: </label>
+            <select name="input-difficulty" id="input-difficulty-update">
+                <option value="Easy">Easy</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Hard">Hard</option>
+            </select>
+            <br><br>
+            <label for="input-distance-update">Update Distance (miles): </label>
+            <input class="input-text" type="text" name="input-distance" id="input-distance-update">
+
+            <br><br>
+            <label for="input-elevationGain-update">Update Elevation Gain (feet): </label>
+            <input class="input-text" type="text" name="input-elevationGain" id="input-elevationGain-update">
+
+            <br><br>
+            <label for="input-description-update">Update Description: </label>
+            <textarea class="input-textarea" name="input-description" id="input-description-update"></textarea>
+
+            <br><br>
+            <label for="input-dogFriendly-update">Update Dog Friendly: </label>
+            <input type="radio" name="input-dogFriendly" id="dogFriendlyYes-update" value="1">
+            <label for="dogFriendlyYes-update">Yes</label>
+            <input type="radio" name="input-dogFriendly" id="dogFriendlyNo-update" value="0">
+            <label for="dogFriendlyNo">No</label>
+
+            <br><br>
+            <label for="input-waterfall-update">Update Waterfall: </label>
+            <input type="radio" name="input-waterfall" id="waterfallYes-update" value="1">
+            <label for="waterfallYes-update">Yes</label>
+            <input type="radio" name="input-waterfall" id="waterfallNo-update" value="0">
+            <label for="waterfallNo">No</label>
+
+            <br><br>
+            
+            <input class="button" type="submit" value="Submit" />
+            <button type="button" onclick="location.reload()" class="cancel">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<script src="./js/add_trail.js"></script>
+<script src="./js/delete_trail.js"></script>
+<script src="./js/update_trail.js"></script>
+
+<!-- Hide forms -->
+<script type="text/javascript">
+    document.getElementById('update-trail').style.display = 'none';
+    document.getElementById('add-trail').style.display = 'none';
+</script>

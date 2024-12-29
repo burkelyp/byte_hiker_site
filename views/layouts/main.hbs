@@ -1,0 +1,43 @@
+{{!-- 
+Citation for page:
+Date: 05/18/2024
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%205%20-%20Adding%20New%20Data/views/layouts/main.hbs 
+--}}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,noarchive, nofollow" />
+    <title>{{title}}</title>
+    <script src="https://kit.fontawesome.com/041c75aa62.js" crossorigin="anonymous"></script>
+    <script src="/js/nav.js"></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/styles.css'>
+    
+</head>
+<body class="center-container">
+    <header>
+        <h1>Byte Hikers</h1>
+    </header>
+
+    <nav id="mainNav">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/trails">Trails</a></li>
+            <li><a href="/categories">Categories</a></li>
+            <li><a href="/activities">Activities</a></li>
+        </ul>
+    </nav>
+    
+    <main class="main">
+        {{{body}}}
+    </main>
+
+
+</body>
+</html>

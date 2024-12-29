@@ -1,0 +1,50 @@
+{{!-- 
+Citation for page:
+Date: 05/18/2024
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%205%20-%20Adding%20New%20Data/views/index.hbs
+--}}
+
+
+<!-- views/index.hbs -->
+
+<div class="home-body">
+    <h2>
+        Welcome to tha sickest hiking app you've never heard of!
+    </h2>
+    <p>     
+    By Burkely Pettijohn &amp; Lindsay Schwartz | Group 65
+    </p>
+    
+    <h3>Byte Hikers Overview</h3>
+    <p>
+    Byte Hikers is a comprehensive platform for users to explore, rate, and document their experiences on trails 
+    tailored to hiking, biking, equestrian adventures, and more. With more than 60 million hikers and 9 million mountain 
+    bikers hitting the 193,000 miles of trails in America's National Trail system annually, there is space for 
+    technology to improve these experiences and encourage exploration. 
+    <br><br>
+    By implementing the database-driven website, Byte Hikers organizes and retrieves data after a user engages 
+    in an activity on a trail. Details of user activities will be chronicled to provide useful feedback of personal 
+    experiences such as duration of the hike, elevation gain, overall rating, and more.
+    </p>
+
+    <div class="boxes">
+        <h4>Byte Hikers Entities</h4>
+        <p>
+            <a href="/users"><strong>Users</strong></a><br>
+            An object table to track users and their demographics. The users will presumably participate in activities.
+        </p>
+        <p>
+            <a href="/trails"><strong>Trails</strong></a><br>
+            An object table to track a unique trail that an activity was completed on.
+        </p>
+        <p>
+            <a href="/categories"><strong>Categories</strong></a><br>
+            An object table to manage the different trail categories such as hiking, biking, etc.
+        </p>
+        <p>
+            <a href="/activities"><strong>Activities</strong></a><br>
+            A transaction table to record an activity that a user participates in, such as hiking or biking on a trail.
+        </p>
+    </div>
+</div>

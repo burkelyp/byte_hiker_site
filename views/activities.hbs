@@ -1,0 +1,171 @@
+{{!-- 
+Citation for "create table" and "form to add activity":
+Date: 05/29/2024
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%205%20-%20Adding%20New%20Data/views/index.hbs
+--}}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+<!-- activities.hbs -->
+
+<h1>Activities</h1>
+<p>Browse, add, edit, or delete activities from Byte Hikers database</p>
+<p><a href="javascript:void(0);" onclick="showAddActivityForm()">+ Add an Activity</a></p>
+
+{{!-- create table --}}
+<table id="activity-table">
+
+    <thead>
+        <tr>
+            <th>Activity ID</th>
+            <th>User</th>
+            <th>Trail</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Rating</th>
+            <th>Duration</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-value="{{this.activityID}}">
+            <td>{{this.activityID}}</td>
+            <td>{{this.userName}}</td>
+            <td>{{this.trailName}}</td>
+            <td>{{{this.icon}}}</td>
+            <td>{{this.date}}</td>
+            <td>{{this.rating}}</td>
+            <td>{{this.duration}}</td>
+
+            <td><a href="javascript:void(0);" onclick="updateActivity({{this.activityID}})">Edit</a></td>
+            <td><a href="javascript:void(0);" onclick="deleteActivity({{this.activityID}})">Delete</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+{{!-- form to add activity --}}
+<div class="boxes" id="add-activity">
+    <div class="form" id="add-activity">
+        <h2>Add Activity</h2>
+        <p>To add a new activity, please enter the info and click 'Submit'</p>
+
+<form id="add-activity-form-ajax">
+    <label for="input-userName" class="required-label">Select user: </label>
+    <select required name="input-userName" id="mySelectUser">
+        <option value="">Select a user</option>
+        {{#each users}}
+        <option value="{{this.userID}}">{{this.userName}}</option>
+        {{/each}}
+    </select>
+
+    <br><br>
+    <label for="input-trailName" class="required-label">Select Trail: </label>
+    <select required name="input-trailName" id="mySelectTrail">
+        <option value="">Select a Trail</option>
+        {{#each trails}}
+        <option value="{{this.trailID}}">{{this.trailName}}</option>
+        {{/each}}
+    </select>
+
+    <br><br>
+    <label for="input-category" class="required-label">Select Category: </label>
+    <select required name="input-category" id="mySelectCategory">
+        <option value="">Select a category</option>
+        {{#each categories}}
+        <option value="{{this.categoryID}}">{{this.description}}</option>
+        {{/each}}
+    </select>
+
+    <br><br>
+    <label for="input-date" class="required-label">Date: </label>
+    <input required type="date" name="input-date" id="input-date">
+    
+    <br><br>
+    <label for="input-rating">Rating (between 1 and 5): </label>
+    <input type="number" min="1" max="5" name="input-rating" id="input-rating">
+    
+    <br><br>
+    <label for="input-duration">Duration (in minutes): </label>
+    <input type="number" name="input-duration" id="input-duration">
+
+            <br><br>
+            <input class="button" type="submit" value="Submit" />
+            <button type="button" onclick="location.reload()" class="cancel">Cancel</button>
+        </form>
+    </div>
+</div>
+
+{{!-- 
+Citation for "update activity":
+Date: 06/01/2024
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
+--}}
+
+{{!-- form to update activity --}}
+<div class="boxes" id="update-activity">
+    <div class="form" id="update-activity">
+        <h2>Update Activity</h2>
+        <p>Only change what you want changed.
+            <br>All changes are permanent. 
+        </p>
+        <form id="update-activity-form-ajax">
+            {{!-- dynamic drop down to select user --}}
+            <label for="input-userID-update" class="required-label">Update User: </label>
+            <select required name="input-userID" id="mySelectUser-update">
+                <option value="">Select User</option>
+                {{#each users}}
+                <option value="{{this.userID}}">{{this.userName}}</option>
+                {{/each}}
+            </select>
+            <br><br>
+            {{!-- dynamic drop down to select trail --}}
+            <label for="input-trailID-update" class="required-label">Update Trail: </label>
+            <select required name="input-trailID" id="mySelectTrail-update">
+                <option value="">Select Trail</option>
+                {{#each trails}}
+                <option value="{{this.trailID}}">{{this.trailName}}</option>
+                {{/each}}
+            </select>
+            
+            <br><br>
+
+            {{!-- dynamic drop down to select category --}}
+            <label for="input-categoryID-update" class="required-label">Update Category: </label>
+            <select required name="input-categoryID" id="mySelectCategory-update">
+                <option value="">Select Category</option>
+                {{#each categories}}
+                <option value="{{this.categoryID}}">{{this.description}}</option>
+                {{/each}}
+            </select>
+            <br><br>
+            <label for="input-date-update" class="required-label">Update Date: </label>
+            <input required name="input-date" id="input-date-update" type="date">
+            <br><br>
+            <label for="input-rating-update">Update Rating: </label>
+            <input name="input-rating" id="input-rating-update" type="number" min="1" max="5">
+            <br><br>
+            <label for="input-duration-update">Update Duration: </label>
+            <input name="input-ruation" id="input-duration-update" type="number">
+            <br><br>
+            <input class="button" type="submit" value="Submit" />
+            <button type="button" onclick="location.reload()" class="cancel">Cancel</button>
+
+        </form>
+    </div>
+</div>
+
+<script src="./js/add_activity.js"></script>
+<script src="./js/delete_activity.js"></script>
+<script src="./js/update_activity.js"></script>
+<script>
+    document.getElementById('add-activity').style.display = 'none';
+    document.getElementById('update-activity').style.display = 'none';
+</script>

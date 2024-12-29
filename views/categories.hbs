@@ -1,0 +1,123 @@
+{{!-- 
+Citation for page:
+Date: 05/18/2024
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%205%20-%20Adding%20New%20Data/views/index.hbs
+--}}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<!-- categories.hbs -->
+
+<h1>Categories</h1>
+<p>Browse, add, edit, or delete categories from the Byte Hikers database</p>
+<p><a href="javascript:void(0);" onclick="showAddCategoryFrom()">+ Add a Category</a></p>
+
+{{!-- create table --}}
+<table id="category-table">
+
+    <thead>
+        <tr>
+            <th>Category ID</th>
+            <th>Description</th>
+            <th>Icon</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-value="{{this.categoryID}}">
+            <td>{{this.categoryID}}</td>
+            <td>{{this.description}}</td>
+            <td>{{{this.icon}}}</td>
+            <td><a href="javascript:void(0);" onclick="updateCategory('{{this.categoryID}}')">Edit</a></td>
+            <td><a href="javascript:void(0);" onclick="deleteCategory('{{this.categoryID}}')">Delete</a></td>
+
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+{{!-- form to add category --}}
+<div class="boxes" id="add-category">
+    <div class="form" id="add">
+        <h2>Add a Category</h2>
+        <p>To add a new category, enter a unique category ID, description, and icon.
+        </p>
+
+        <form id="add-category-form-ajax">
+
+    <label for="input-categoryID" class="required-label">Category ID: </label>
+    <input required class="input-text" type="text" name="input-categoryID" id="input-categoryID">
+    
+    <br><br>
+    <label for="input-description" class="required-label">Description: </label>
+    <input required class="input-text" type="text" name="input-description" id="input-description">
+
+
+    <p class="required-label">Select an Icon: </p>
+    <div id="input-add-icon">
+        {{#each icons}}
+            <label for="input-icon-{{this}}">
+                <input required  type="radio" name="input-icon" id="input-icon-{{this}}" value="{{this}}" />
+                {{{this}}}
+            </label>
+        {{/each}} 
+    </div>
+
+        <input class="button" type="submit" value="Submit" /> 
+        <button type="button" onclick="location.reload()" class="cancel">Cancel</button>
+    </form>
+    </div>
+</div>
+
+{{!-- 
+Citation for "update category":
+Date: 05/29/2024
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
+--}}
+
+{{!-- form to update category --}}
+<div class="boxes" id="update-category">
+    <div class="form" id="update">
+        <h2>Update a Category</h2>
+        <p>Only change what you want changed.
+            <br>All changes are permanent. 
+        </p>
+        <form id="update-category-form-ajax">
+
+            <label for="input-categoryID-update" class="required-label">Update Category ID: </label>
+            <input required class="input-text" name="input-categoryID-update" id="input-categoryID-update" type="text">
+
+            <br><br>
+            <label for="input-description-update" class="required-label">Update Description: </label>
+            <input required class="input-text" class="input-text" name="input-description-update" id="input-description-update" type="text">
+
+            <p class="required-label">Update the Icon: </p>
+            <div id="input-update-icon">
+                {{#each icons}}
+                    <label for="{{this}}">
+                        <input required type="radio" name="input-icon-update" id="{{this}}" value="{{this}}" />
+                        {{{this}}}
+                    </label>
+                {{/each}} 
+            </div>
+            <br>
+            <input class="button" type="submit" value="Submit" /> 
+            <button type="button" onclick="location.reload()" class="cancel">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<script src="./js/add_category.js"></script>
+<script src="./js/delete_category.js" type="text/javascript"></script>
+<script src="./js/update_category.js"></script>
+
+<script type="text/javascript">
+    document.getElementById('update-category').style.display = 'none';
+    document.getElementById('add-category').style.display = 'none';
+</script>

@@ -1,0 +1,294 @@
+/* 
+Citation:
+
+CSS is original work, referencing CSS documentation at mdn web docs.
+Source URL: https://developer.mozilla.org/en-US/docs/Web/CSS
+
+*/
+
+
+
+/* import fonts */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+
+:root {
+  --primary: #2da08d;
+  --secondary: #2d4945;
+  --accent: #edc84b;
+  --light: #f9f9f9;
+  --medium: #ccc;
+  --background: #f8f8f8;
+  --text: #353535;
+}
+
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto Mono", sans-serif;
+  margin: 0;
+
+}
+
+
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  font-size: 16px;
+}
+
+h3 {
+  padding-top: 20px;
+}
+
+/* to center site */
+.center-container {
+  flex: 1;
+  width: 90%;
+  max-width: 1400px;
+  margin: auto;
+  padding: 3.2rem;
+  padding-bottom: 60px;
+
+}
+
+
+.main {
+  padding: 30px;
+  padding-left: 60px;
+  padding-right: 90px;
+  padding-bottom: 60px;
+  background-color: var(--background);
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1), 0 2px 5px rgba(0,0,0,0.1);
+
+}
+
+header {
+  text-align: center;
+}
+
+
+
+/* NAV STYLES */
+nav#mainNav {
+  background-color: var(--primary-light);
+  padding: 10px 0;
+  border-top: 1px solid var(--light);
+  border-bottom: 1px solid var(--light);
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1), 0 2px 5px rgba(0,0,0,0.1);
+}
+
+nav#mainNav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+nav#mainNav ul li {
+  display: inline;
+}
+
+nav#mainNav ul li a {
+  text-decoration: none;
+  color: #353535;
+  font-weight: 500;
+  padding: 10px 15px;
+  display: inline-block;
+  height: 30px;
+  line-height: 15px;
+  box-sizing: border-box;
+  width: 120px;
+  text-align: center;
+  position: relative; 
+  transition: color 0.2s, font-weight 0.2s, border-bottom 0.2s; 
+}
+
+nav#mainNav ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: -10px; 
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: #2da08d;
+  transform: scaleX(0);
+  transform-origin: bottom;
+  transition: transform 0.2s ease-in-out;
+}
+
+nav#mainNav ul li a:hover,
+nav#mainNav ul li a.active {
+  font-weight: 600;
+}
+
+nav#mainNav ul li a:hover::after,
+nav#mainNav ul li a.active::after {
+  transform: scaleX(1);
+}
+
+
+
+/* used for forms and index page entities box */
+.boxes {
+  margin-top: 40px;
+  border: 1px solid var(--medium);
+  padding: 20px;
+  padding-left: 40px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+
+/* TABLE STYLES */
+table {
+  width: 100%; 
+  border-collapse: collapse;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+th,
+td {
+  border: 1px solid var(--medium); 
+  padding: 8px;
+  text-align: left;
+  font-size: 15px;
+}
+
+
+/* colors for every other row */
+tbody tr:nth-child(even) {
+  background-color: var(--light); 
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #ffffff; 
+}
+
+thead tr {
+  background-color: var(--accent);
+  border: 1px solid #353535; 
+}
+
+.table-wrapper {
+  overflow-x: auto; /* makes table responsive */
+  border-bottom: 90px;
+
+}
+
+
+
+/* FORM STYLES */
+.form {
+  font-size: 15px;
+}
+
+.form label {
+  display: inline-block;
+  font-weight: 500; 
+}
+
+.input-text, .input-textarea, .input-textarea, input[type="date"], input[type="number"], select {
+  width: 100%; 
+  max-width: 300px;
+  padding: 8px; 
+  font-size: 15px; 
+  box-sizing: border-box; 
+}
+
+.input-textarea {
+  max-width: 500px;
+  display: block;
+  margin-top: 8px; 
+}
+
+select {
+  padding: 8px; 
+  font-size: 14px; 
+  width: 100%;
+  box-sizing: border-box; 
+}
+
+
+/* BUTTON STYLES */
+
+/* submit */
+.button {
+  padding: 10px 15px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  margin-right: 4px;
+  font-size: 16px;
+  border-radius: 0;
+  border: 0px solid var(--primary); 
+  background-color: var(--primary); 
+  color: white; 
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+.button:hover {
+  background-color: var(--accent);
+  color: #fff; 
+}
+
+
+/* cancel */
+button {
+  padding: 10px 15px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  border-radius: 0;
+  border: 0px solid var(--medium); 
+  background-color: var(--medium); 
+  color: white; 
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+
+button:hover {
+  background-color: var(--accent);
+  color: #fff; 
+}
+
+
+/* LINK STYLES */
+a:link, a:visited {
+  color: var(--primary);
+  text-decoration: underline;
+  font-weight: 500;
+  display: inline-block;
+}
+
+a:hover {
+  font-weight: 600;
+}
+
+
+/* ICONS */
+#input-add-icon, #input-update-icon {
+  display: grid;
+  grid-template-columns: 10% 10% 10% 10% 10% 10%;
+  font-size: 200%;
+}
+
+
+
+/* Required fields*/
+.required-label::after {
+  content: " *";
+  color: #c50808;
+  margin-right: 4px;
+}
+

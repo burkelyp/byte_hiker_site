@@ -1,0 +1,112 @@
+{{!-- 
+Citation for "create table" and "form to add user":
+Date: 05/18/2024
+Used general structure of template.
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/blob/main/Step%205%20-%20Adding%20New%20Data/views/index.hbs
+--}}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<!-- users.hbs -->
+
+<h1>Users</h1>
+<p>Browse, add, edit, or delete users, and add or update a trail category perference for a specificed user in Byte Hikers database</p>
+
+<a href="javascript:void(0);" onclick="addUser()">+ Add a User</a>
+<p></p>
+
+{{!-- create table --}}
+<table id="user-table">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Trail Preferences</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each data}}
+        <tr data-value="{{this.userID}}">
+            <td>{{this.userID}}</td>
+            <td>{{this.userName}}</td>
+            <td>{{this.email}}</td>
+            <td>{{{this.trailPreferences}}}</td>
+            <td><a href="javascript:void(0);" onclick="updateUser({{this.userID}})">Edit</a></td>
+            <td><a href="javascript:void(0);" onclick="deletePerson({{this.userID}})">Delete</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<div>
+
+<script src="./js/delete_user.js"></script>
+
+
+{{!-- form to add user --}}
+<div class="boxes" id="add-user">
+    <div class="form" id="add-user">
+        <h2>Add a User</h2>
+        <p>To add a new user, enter their info and click 'Submit'</p>
+        <form id="add-user-form-ajax">
+            <label for="input-userName" class="required-label">User Name: </label>
+            <input required class="input-text" type="text" name="input-userName" id="input-userName">
+            
+            <br><br>
+            <label for="input-email" class="required-label">Email: </label>
+            <input required class="input-text" type="email" name="input-email" id="input-email">
+
+            <br><br>
+            <label for="input-userCategoryPreference">Select trail preferences: </label>
+            <div id="checkboxes-container-add">
+                {{#each categories}}
+                    <input type="checkbox" name="userCategoryPreference" value="{{this.categoryID}}">
+                    <label>{{this.description}}</label><br>
+                {{/each}}
+            </div>
+            <br>
+            <input class="button" type="submit" value="Submit" />
+            <button type="button" onclick="location.reload()" class="cancel">Cancel</button>
+        </form>
+    </div>
+</div>
+<script src="./js/add_user.js"></script>
+
+
+
+{{!-- 
+Citation for "update user":
+Date: 05/22/2024
+Used general structure of template.
+Adapted from:
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%208%20-%20Dynamically%20Updating%20Data
+--}}
+
+{{!-- form to update user --}}
+<div class="boxes" id="update-user">
+    <div class="form" id="update-user">
+        <h2>Update a User</h2>
+        <p>Select a user to update. The user information will populate -- only change what you want changed. All changes are permanent.</p>
+        <form id="update-user-form-ajax">
+            <label for="input-userName" class="required-label">Update User Name: </label>
+            <input required class="input-text" name="input-userName-update" id="input-userName-update" type="text">
+
+            <br><br>
+            <label for="input-email-update" class="required-label">Update Email Address: </label>
+            <input required class="input-text" name="input-email" id="input-email-update" type="email">
+            
+            <br><br>
+            <label for="input-userCategoryPreference">Update trail preferences: </label>
+            <div id="checkboxes-container"></div>
+            <br>
+            <input class="button" type="submit" value="Submit" />
+            <button type="button" onclick="location.reload()" class="cancel">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<script src="./js/update_user.js"></script>
