@@ -30,6 +30,9 @@ app.set('view engine', '.hbs');                     // use handlebars engine for
 
 var db = require('./database/db-connector')
 
+require("dotenv").config()
+const port = process.env.port
+const source = process.env.source
 
 
 /*
@@ -1003,5 +1006,5 @@ app.delete('/delete-activity-ajax/', function(req,res,next) {
     LISTENER
 */
 app.listen(PORT, function() {            
-    console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
+    console.log(`Express started on http://${source}:${port}; press Ctrl-C to terminate.`)
 });
