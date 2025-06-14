@@ -15,13 +15,11 @@
     SETUP
 */
 var express = require('express');   
-var app     = express();            
+var app = express();            
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
-
-PORT        = 32451;                
 
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');         // import express-handlebars
@@ -31,7 +29,7 @@ app.set('view engine', '.hbs');                     // use handlebars engine for
 var db = require('./database/db-connector')
 
 require("dotenv").config()
-const port = process.env.port
+const port = process.env.PORT || 8080  // GCS || locally
 const source = process.env.source
 
 
@@ -1005,6 +1003,6 @@ app.delete('/delete-activity-ajax/', function(req,res,next) {
 /*
     LISTENER
 */
-app.listen(PORT, function() {            
+app.listen(port, function() {            
     console.log(`Express started on http://${source}:${port}; press Ctrl-C to terminate.`)
 });
